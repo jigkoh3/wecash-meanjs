@@ -1,0 +1,106 @@
+<!--<section>
+  <div class="page-header">
+    <h1>Exchanges</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="exchange in vm.exchanges"
+       ui-sref="exchanges.view({ exchangeId: exchange._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="exchange.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="exchange.user" ng-bind="exchange.user.displayName"></span>
+        <span ng-if="!exchange.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="exchange.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.exchanges.$resolved && !vm.exchanges.length">
+    No Exchanges yet, why don't you <a ui-sref="exchanges.create">create one</a>?
+  </div>
+</section>-->
+
+
+<section class="header-height">
+  <div class="page-header">
+    <h1>Exchanges</h1>
+  </div>
+
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-8">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" ><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="Search List..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+    <!--buttonCreate-->
+    <div class="col-md-4 hidden-xs hidden-sm show-md show-lg">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="exchanges.create">
+          <i class="fa fa-file-o" aria-hidden="true"></i>
+          <span>New Exchange</span>
+        </a>
+      </div>
+    </div>
+  </div>
+<!--Table-->
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-info">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>From</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Amount_From</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>To </strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Amount_To</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-2">
+          <strong>Location</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Schedule</strong>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!--repeat-->
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="exchange in vm.exchanges | filter:topsearch">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading dotpyForm" ng-bind=" exchange.currency_from"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading dotpyForm" ng-bind="exchange.amount_from"></p>
+        </div>
+        
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading marright" ng-bind="exchange.currency_to"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="exchange.amount_to"></p>
+        </div>
+       
+        <div class="col-xs-1 col-sm-1 col-md-2">
+          <p class="list-group-item-heading" ng-bind="exchange.location"></p>
+          
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <p class="list-group-item-heading">{{exchange.schedule | date:'dd/MM/yyyy'}} </p>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  
+</section>

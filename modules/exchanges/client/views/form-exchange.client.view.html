@@ -1,0 +1,67 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.exchange._id ? 'Edit Exchange' : 'New Exchange'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.exchangeForm" class="form-horizontal" ng-submit="vm.save(vm.form.exchangeForm.$valid)" novalidate>
+      <fieldset>
+        <!--currency_from-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">From : </label>
+          <input name="name" type="text" ng-model="vm.exchange.currency_from" id="name" class="form-control" placeholder="Currency_From" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Currency From is required.</p>
+          </div>
+        </div>
+         <!--Amount_From-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Amount From : </label>
+          <input name="name" type="Number" ng-model="vm.exchange.amount_from" id="name" class="form-control" placeholder="Amount_From" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Amount_From is required.</p>
+          </div>
+        </div>
+        <!--currency_to-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">To : </label>
+          <input name="name" type="text" ng-model="vm.exchange.currency_to" id="name" class="form-control" placeholder="Currency_To" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Currency_To is required.</p>
+          </div>
+        </div>
+         <!--Amount_To-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Amount To  : </label>
+          <input name="name" type="Number" ng-model="vm.exchange.amount_to" id="name" class="form-control" placeholder="Amount_To" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Amount_To is required.</p>
+          </div>
+        </div>
+
+        <!--Location-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Location  : </label>
+          <input name="name" type="text" ng-model="vm.exchange.location" id="name" class="form-control" placeholder="Location" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Location is required.</p>
+          </div>
+        </div>
+
+        <!--Schedule-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Schedule  : </label>
+          <input name="name" type="date" ng-model="vm.exchange.schedule" id="name" class="form-control" placeholder="Schedule" required>
+          <div ng-messages="vm.form.exchangeForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Exchange Schedule is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.exchange._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
