@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+
 var path = require('path'),
   mongoose = require('mongoose'),
   Exchange = mongoose.model('Exchange'),
