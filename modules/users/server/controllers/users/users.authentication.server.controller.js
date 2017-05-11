@@ -234,7 +234,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
         return done(err, user, '/settings/accounts');
       });
     } else {
-      return done(null, user);
+      return done(new Error('User is already connected using this provider'), user);
       
     }
   }
