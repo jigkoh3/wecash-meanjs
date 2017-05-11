@@ -100,7 +100,7 @@ exports.delete = function (req, res) {
  * List of Exchanges
  */
 exports.list = function (req, res) {
-  Exchange.find().sort('-created').populate('user', 'displayName').exec(function (err, exchanges) {
+  Exchange.find().sort('-created').populate('user').exec(function (err, exchanges) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -122,7 +122,7 @@ exports.exchangeByID = function (req, res, next, id) {
     });
   }
 
-  Exchange.findById(id).populate('user', 'displayName').exec(function (err, exchange) {
+  Exchange.findById(id).populate('user').exec(function (err, exchange) {
     if (err) {
       return next(err);
     } else if (!exchange) {
