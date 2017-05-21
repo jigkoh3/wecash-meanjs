@@ -25,6 +25,9 @@ var ExchangeSchema = new Schema({
   rate: {
     type: Number,
   },
+  tel: {
+    type: String,
+  },
   schedule: {
     type: Date,
   },
