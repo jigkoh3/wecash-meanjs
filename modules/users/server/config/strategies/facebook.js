@@ -29,7 +29,7 @@ module.exports = function (config) {
       displayName: profile.displayName,
       email: profile.emails ? profile.emails[0].value : generateUsername(profile) + '@wecash.com',
       username: profile.username || generateUsername(profile),
-      profileImageURL: (profile.id) ? '//graph.facebook.com/' + profile.id + '/picture?type=large' : undefined,
+      profileImageURL: (profile.id) ? 'http://graph.facebook.com/' + profile.id + '/picture?type=large' : undefined,
       provider: 'facebook',
       providerIdentifierField: 'id',
       providerData: providerData
