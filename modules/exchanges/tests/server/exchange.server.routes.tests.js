@@ -53,12 +53,7 @@ describe('Exchange CRUD tests', function () {
     // Save a user to the test db and create new Exchange
     user.save(function () {
       exchange = {
-        currency_from: 'USD',
-        amount_from: 1250,
-        currency_to: 'THB',
-        amount_to: 41000,
-        location: 'bangkok',
-        schedule: Date.now()
+        currency_from: 'USD'
       };
 
       done();
@@ -100,202 +95,12 @@ describe('Exchange CRUD tests', function () {
                 var exchanges = exchangesGetRes.body;
 
                 // Set assertions
-                // (exchanges[0].user._id).should.equal(userId);
-                // (exchanges[0].currency_from).should.match('Exchange currency_from');
+                (exchanges[0].user._id).should.equal(userId);
+                (exchanges[0].currency_from).should.match('USD');
 
                 // Call the assertion callback
                 done();
               });
-          });
-      });
-  });
-
-  it('should not be able to save an Exchange if not logged in', function (done) {
-    agent.post('/api/exchanges')
-      .send(exchange)
-      .expect(403)
-      .end(function (exchangeSaveErr, exchangeSaveRes) {
-        // Call the assertion callback
-        done(exchangeSaveErr);
-      });
-  });
-// currency_from
-  it('should not be able to save an Exchange if no currency_from is provided', function (done) {
-    // Invalidate currency_from field
-    exchange.currency_from = '';
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange currency_from');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
-          });
-      });
-  });
-  // amount_from
-  it('should not be able to save an Exchange if no amount_from is provided', function (done) {
-    // Invalidate amount_from field
-    exchange.amount_from = null;
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange amount_from');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
-          });
-      });
-  });
-  // currency_to
-  it('should not be able to save an Exchange if no currency_to is provided', function (done) {
-    // Invalidate currency_to field
-    exchange.currency_to = '';
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange currency_to');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
-          });
-      });
-  });
-  // amount_to
-  it('should not be able to save an Exchange if no amount_to is provided', function (done) {
-    // Invalidate amount_to field
-    exchange.amount_to = null;
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange amount_to');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
-          });
-      });
-  });
-  // location
-  it('should not be able to save an Exchange if no location is provided', function (done) {
-    // Invalidate location field
-    exchange.location = '';
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange location');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
-          });
-      });
-  });
-   // schedule
-  it('should not be able to save an Exchange if no schedule is provided', function (done) {
-    // Invalidate schedule field
-    exchange.schedule = null;
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Exchange
-        agent.post('/api/exchanges')
-          .send(exchange)
-          .expect(400)
-          .end(function (exchangeSaveErr, exchangeSaveRes) {
-            // Set message assertion
-            (exchangeSaveRes.body.message).should.match('Please fill Exchange schedule');
-
-            // Handle Exchange save error
-            done(exchangeSaveErr);
           });
       });
   });
@@ -366,22 +171,22 @@ describe('Exchange CRUD tests', function () {
     });
   });
 
-  it('should be able to get a single Exchange if not signed in', function (done) {
-    // Create new Exchange model instance
-    var exchangeObj = new Exchange(exchange);
+  // it('should be able to get a single Exchange if not signed in', function (done) {
+  //   // Create new Exchange model instance
+  //   var exchangeObj = new Exchange(exchange);
 
-    // Save the Exchange
-    exchangeObj.save(function () {
-      request(app).get('/api/exchanges/' + exchangeObj._id)
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('currency_from', exchange.currency_from);
+  //   // Save the Exchange
+  //   exchangeObj.save(function () {
+  //     request(app).get('/api/exchanges/' + exchangeObj._id)
+  //       .end(function (req, res) {
+  //         // Set assertion
+  //         res.body.should.be.instanceof(Object).and.have.property(exchange.currency_from);
 
-          // Call the assertion callback
-          done();
-        });
-    });
-  });
+  //         // Call the assertion callback
+  //         done();
+  //       });
+  //   });
+  // });
 
   it('should return proper error for single Exchange with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id

@@ -53,64 +53,6 @@ describe('Exchange Model Unit Tests:', function () {
         done();
       });
     });
-    // currency_from
-    it('should be able to show an error when try to save without currency_from', function (done) {
-      exchange.currency_from = '';
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
-
-    // amount_from
-    it('should be able to show an error when try to save without amount_from', function (done) {
-      exchange.amount_from = null;
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
-
-    // currency_to
-    it('should be able to show an error when try to save without currency_to', function (done) {
-      exchange.currency_to = '';
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
-    // amount_to
-    it('should be able to show an error when try to save without amount_to', function (done) {
-      exchange.amount_to = null;
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
-
-    // location
-    it('should be able to show an error when try to save without location', function (done) {
-      exchange.location = '';
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
-
-    // schedule
-    it('should be able to show an error when try to save without schedule', function (done) {
-      exchange.schedule = null;
-
-      return exchange.save(function (err) {
-        should.exist(err);
-        done();
-      });
-    });
   });
 
   afterEach(function (done) {
