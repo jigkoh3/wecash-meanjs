@@ -32,7 +32,7 @@ module.exports = function (io, socket) {
           io.sockets.in(user.username).emit('invite', chat[0]);
         });
       } else {
-        var res = data.name.split(".");
+        var res = data.name.split('.');
         var rename = res[1] + '.' + res[0];
         Chatroom.find({ name: rename }).populate('user', 'displayName').populate('users').exec(function (err, chat) {
           if (chat[0]) {
@@ -67,7 +67,7 @@ module.exports = function (io, socket) {
               }
             });
 
-            var res = data.name.split(".");
+            var res = data.name.split('.');
             var rename = res[1] + '' + res[0];
           }
         });

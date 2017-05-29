@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Pushnotis</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="pushnoti in vm.pushnotis"
+       ui-sref="pushnotis.view({ pushnotiId: pushnoti._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="pushnoti.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="pushnoti.user" ng-bind="pushnoti.user.displayName"></span>
+        <span ng-if="!pushnoti.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="pushnoti.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.pushnotis.$resolved && !vm.pushnotis.length">
+    No Pushnotis yet, why don't you <a ui-sref="pushnotis.create">create one</a>?
+  </div>
+</section>
