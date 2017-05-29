@@ -10,7 +10,14 @@ var path = require('path'),
   request = require('request'),
   exchangeUrl = 'http://api.fixer.io/latest?base=',
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  Pushnoti = mongoose.model('Pushnoti'),
+  request = require('request'),
+  pushNotiUrl = process.env.PUSH_NOTI_URL || 'https://api.ionic.io/push/notifications',
+  pushNotiAuthenUSR = {
+    profile: process.env.PUSH_NOTI_PROFILE || 'dev',
+    auth: process.env.PUSH_NOTI_USR_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNDViMDQwYS02MDQ4LTQ5ZGItOTE4Yy0wOWZiYzczOWNjZDYifQ.3dWThh_h51DCFoRA3Y9RAR53BneZwkPLtH1ri3FHKzI'
+  };
 
 /**
  * Create a Exchange
@@ -25,6 +32,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      sendUsers();
       res.jsonp(exchange);
     }
   });
@@ -154,3 +162,41 @@ exports.exchangeByBase = function (req, res, next, base) {
     }
   });
 };
+
+function sendUsers() {
+  Pushnoti.find().sort('-created').where('role').equals('user').exec(function (err, users) {
+    if (err) {
+
+    } else {
+      var usrtokens = [];
+      users.forEach(function (user) {
+        usrtokens.push(user.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenUSR.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: usrtokens,
+          profile: pushNotiAuthenUSR.profile,
+          notification: {
+            message: 'มีรายการสร้างใหม่',
+            //ios: { badge: orders.length, sound: 'default' },
+            //android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+
+}
