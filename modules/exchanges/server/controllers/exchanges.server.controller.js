@@ -108,7 +108,8 @@ exports.delete = function (req, res) {
  * List of Exchanges
  */
 exports.list = function (req, res) {
-  Exchange.find({ schedule: { $lte: new Date(new Date().getFullYear(), new Date().getMonth(),new Date().getDate()) } }).sort('-created').populate('user').exec(function (err, exchanges) {
+  // Exchange.find({ schedule: { $lte: new Date(new Date().getFullYear(), new Date().getMonth(),new Date().getDate()) } }).sort('-created').populate('user').exec(function (err, exchanges) {
+  Exchange.find().sort('-created').populate('user').exec(function (err, exchanges) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
